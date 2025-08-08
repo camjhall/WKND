@@ -1,3 +1,8 @@
+
+.teaser-wrapper {
+    width: 100%;
+}
+
 .teaser-wrapper .teaser-container {
     display: flex;
     flex-direction: row-reverse;
@@ -174,6 +179,13 @@ html[lang="ru"] .teaser-wrapper .button-container > a {
     position: absolute;
 }
 
+.teaser-wrapper .swoosh-bg-hidden {
+    display: none;
+}
+
+.teaser-wrapper .swoosh-layers-hidden {
+    display: none;
+}
 
 
 

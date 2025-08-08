@@ -20,17 +20,59 @@
     {
       "id": "contentfragment",
       "fields": [
-        {          
-          "component": "aem-content",
-          "name": "reference",
-          "label": "Reference",
-          "valueType": "string",
-          "required": true,
-          "validation": {
-              "rootPath": "/content/dam"
-          }
+      {
+        "component": "aem-content",
+        "name": "reference",
+        "label": "Reference",
+        "valueType": "string",
+        "required": true,
+        "validation": {
+            "rootPath": "/content/dam"
         }
-      ]
+      },
+      {
+        "component": "select",
+        "name": "style",
+        "label": "Choose Variation",
+        "options": [
+          {
+            "name": "Master",
+            "value": "master"
+          },
+            {
+            "name": "Mobile",
+            "value": "mobile"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style",
+        "label": "Style",
+        "options": [
+          {
+            "name": "default",
+            "value": ""
+          },
+          {
+            "name": "Image Left",
+            "value": "image-left"
+          },
+          {
+            "name": "Image Right",
+            "value": "image-right"
+          },
+          {
+            "name": "Image Top",
+            "value": "image-top"
+          },
+          {
+            "name": "Image Bottom",
+            "value": "image-bottom"
+          }
+        ]
+      }
+    ]
     }
   ],
   "filters": []

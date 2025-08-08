@@ -358,80 +358,9 @@
           {
             "name": "Light Color",
             "value": "bg-light"
-          },
-          {
-            "name": "Background Image",
-            "value": "bg-image"
           }
+          
         ]
-      },
-      {
-        "component": "container",
-        "label": "Background Image",
-        "name": "container",
-        "valueType": "string",
-        "collapsible": true,
-        "condition": {
-          "==": [
-            {
-              "var": "style"
-            },
-            "bg-image"
-          ]
-        },
-        "fields": [
-          {
-            "component": "reference",
-            "valueType": "string",
-            "name": "image",
-            "label": "Background Image",
-            "multi": false
-          },
-          {
-            "component": "reference",
-            "valueType": "string",
-            "name": "tab-image",
-            "label": "Tablet Image",
-            "description": "Background image will be used on tablet by default.",
-            "multi": false
-          },
-          {
-            "component": "reference",
-            "valueType": "string",
-            "name": "mob-image",
-            "label": "Mobile Image",
-            "description": "Background / Tablet image will be used on mobile by default.",
-            "multi": false
-          }
-        ]
-      },
-      {
-        "component": "boolean",
-        "valueType": "boolean",
-        "name": "sec-inside-container",
-        "label": "Show background color inside container.",
-        "condition": {
-          "!=": [
-            {
-              "var": "style"
-            },
-            "bg-image"
-          ]
-        }
-      },
-      {
-        "component": "boolean",
-        "valueType": "boolean",
-        "name": "sec-width",
-        "label": "Reduce section width.",
-        "condition": {
-          "!=": [
-            {
-              "var": "style"
-            },
-            "bg-image"
-          ]
-        }
       },
       {
         "component": "boolean",
@@ -482,14 +411,6 @@
           {
             "name": "Image Bottom",
             "value": "image-bottom"
-          },
-          {
-            "name": "Image Left",
-            "value": "image-left"
-          },
-          {
-            "name": "Image Right",  
-            "value": "image-right"
           },
           {
             "name": "Teaser Overlay",
@@ -548,11 +469,42 @@
       {
         "component": "select",
         "name": "style",
-        "label": "Variation",
+        "label": "Choose Variation",
         "options": [
           {
             "name": "Master",
             "value": "master"
+          },
+            {
+            "name": "Mobile",
+            "value": "mobile"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style",
+        "label": "Style",
+        "options": [
+          {
+            "name": "default",
+            "value": ""
+          },
+          {
+            "name": "Image Left",
+            "value": "image-left"
+          },
+          {
+            "name": "Image Right",
+            "value": "image-right"
+          },
+          {
+            "name": "Image Top",
+            "value": "image-top"
+          },
+          {
+            "name": "Image Bottom",
+            "value": "image-bottom"
           }
         ]
       }
@@ -587,11 +539,27 @@
   {
     "id": "dm-asset",
     "fields": [
-      {
-          "component": "text",
-          "name": "dm_alttext",
-          "label": "Alt Text",
-          "valueType": "string"
+        {
+          "component": "select",
+          "name": "delivery_Type",
+          "value": "na",
+          "label": "Delivery Type",
+          "description": "'Dynamic Media' will be rendered by providing dynamic media server URL. 'Dynamic Media with OpenAPI' will use openAPI delivery with additional options to manipulate the image rendering on the fly.",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "--Select Delivery Type--",
+              "value": "na"
+            },
+            {
+              "name": "Dynamic Media",
+              "value": "dm"
+            },
+            {
+              "name": "Dynamic Media with OpenAPI",
+              "value": "dm-openapi"
+            }
+          ]
         },
         {
           "component": "reference",
@@ -601,136 +569,124 @@
           "multi": false,
           "description": "Select AEM DAM repository from asset selector if using Delivery Type as Dynamic Media. Select DM delivery repository from asset selector if using Delivery Type as Dynamic Media with OpenAPI",
           "required": true
+        },        
+        {
+          "condition": {
+            "===": [{ "var": "delivery_Type" }, "dm"]
+          },
+            "component": "text",
+            "name": "dmUrl",
+            "value": "https://smartimaging.scene7.com/is/image/DynamicMediaNA",
+            "label": "Dynamic Media URL",
+            "valueType": "string"
         },
         {
-        "component": "select",
-        "name": "delivery_Type",
-        "value": "dm",
-        "label": "Delivery Type",
-        "description": "'Dynamic Media' will be rendered by providing dynamic media server URL. 'Dynamic Media with OpenAPI' will use openAPI delivery with additional options to manipulate the image rendering on the fly.",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Dynamic Media",
-            "value": "dm"
+          "condition": {
+            "===": [{ "var": "delivery_Type" }, "dm-openapi"]
           },
-          {
-            "name": "Dynamic Media with OpenAPI",
-            "value": "dm-openapi"
-          }
-        ]
-      },
-      {
-        "condition": {
-          "===": [{ "var": "delivery_Type" }, "dm"]
+          "component": "select",
+          "name": "rotation",
+          "value": "",
+          "label": "Rotation",
+          "description": "Select the rotation which will rotate the image.",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "30",
+              "value": "30"
+            },
+            {
+              "name": "45",
+              "value": "45"
+            },
+            {
+              "name": "60",
+              "value": "60"
+            },
+            {
+              "name": "90",
+              "value": "90"
+            },
+            {
+              "name": "120",
+              "value": "120"
+            },
+            {
+              "name": "160",
+              "value": "160"
+            },
+            {
+              "name": "180",
+              "value": "180"
+            },
+            {
+              "name": "230",
+              "value": "230"
+            },
+            {
+              "name": "270",
+              "value": "270"
+            },
+            {
+              "name": "300",
+              "value": "300"
+            },
+            {
+              "name": "330",
+              "value": "330"
+            }
+          ]
         },
-          "component": "text-input",
-          "name": "dmUrl",
-          "value": "https://smartimaging.scene7.com/is/image/DynamicMediaNA",
-          "label": "Dynamic Media URL",
+        {
+          "condition": {
+            "===": [{ "var": "delivery_Type" }, "dm-openapi"]
+          },
+          "component": "select",
+          "name": "flip",
+          "value": "",
+          "label": "Flip",
+          "description": "Select the flip for the image either vertical or horizontal or vertical & horizontal",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "Vertical",
+              "value": "v"
+            },
+            {
+              "name": "Horizontal",
+              "value": "h"
+            },
+            {
+              "name": "Horizontal & Vertical",
+              "value": "hv"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "===": [{ "var": "delivery_Type" }, "dm-openapi"]
+          },
+          "component": "text",
+          "name": "crop",
+          "value": "",
+          "label": "Crop",
+          "description": "Crop the final image using four values: left, top, width, and height, all in percentages. For example, 10p,10p,50p,50p means crop the image starting 10% from the left and top, and take 50% of the image's width and height.",
           "valueType": "string"
-      },
-      {
-        "condition": {
-          "===": [{ "var": "delivery_Type" }, "dm-openapi"]
         },
-        "component": "select",
-        "name": "rotation",
-        "value": "",
-        "label": "Rotation",
-        "description": "Select the rotation which will rotate the image.",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "None",
-            "value": ""
-          },
-          {
-            "name": "30",
-            "value": "30"
-          },
-          {
-            "name": "45",
-            "value": "45"
-          },
-          {
-            "name": "60",
-            "value": "60"
-          },
-          {
-            "name": "90",
-            "value": "90"
-          },
-          {
-            "name": "120",
-            "value": "120"
-          },
-          {
-            "name": "160",
-            "value": "160"
-          },
-          {
-            "name": "180",
-            "value": "180"
-          },
-          {
-            "name": "230",
-            "value": "230"
-          },
-          {
-            "name": "270",
-            "value": "270"
-          },
-          {
-            "name": "300",
-            "value": "300"
-          },
-          {
-            "name": "330",
-            "value": "330"
-          }
-        ]
-      },
-      {
-        "condition": {
-          "===": [{ "var": "delivery_Type" }, "dm-openapi"]
-        },
-        "component": "select",
-        "name": "flip",
-        "value": "",
-        "label": "Flip",
-        "description": "Select the flip for the image either vertical or horizontal or vertical & horizontal",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "None",
-            "value": ""
-          },
-          {
-            "name": "Vertical",
-            "value": "v"
-          },
-          {
-            "name": "Horizontal",
-            "value": "h"
-          },
-          {
-            "name": "Horizontal & Vertical",
-            "value": "hv"
-          }
-        ]
-      },
-      {
-        "condition": {
-          "===": [{ "var": "delivery_Type" }, "dm-openapi"]
-        },
-        "component": "text",
-        "name": "crop",
-        "value": "",
-        "label": "Crop",
-        "description": "Crop the final image using four values: left, top, width, and height, all in percentages. For example, 10p,10p,50p,50p means crop the image starting 10% from the left and top, and take 50% of the image's width and height.",
-        "valueType": "string"
-      }
+        {
+            "component": "text",
+            "name": "dm_alttext",
+            "label": "Alt Text",
+            "valueType": "string"
+        }
     ]
   },
   {
@@ -747,27 +703,6 @@
     "id": "carousel",
     "fields": [
       {
-        "component": "richtext",
-        "name": "title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "value": "",
-        "label": "Description",
-        "valueType": "string"
-      },
-      {
-        "component": "reference",
-        "name": "button",
-        "value": "",
-        "label": "Additional Text",
-        "valueType": "string"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "card",
@@ -782,8 +717,62 @@
        "component": "text",
        "valueType": "string",
        "required": true,
+       "description" : "Any direct full URL of publicly available video. e.g. video URL of aem publish instance, Dynamic Media etc.",
        "name": "videoUrl",
        "label": "Video Url"
+      }
+    ]
+  },
+  {
+    "id": "separator",
+    "fields": [
+      {
+        "component": "select",
+        "name": "style",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "default",
+            "value": ""
+          },
+          {
+            "name": "Light",
+            "value": "light"
+          },
+          {
+            "name": "Dark",
+            "value": "dark"
+          },
+          {
+            "name": "Hidden",
+            "value": "hidden"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "spacing",
+        "label": "Spacing",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "default",
+            "value": ""
+          },
+          {
+            "name": "Small",
+            "value": "small"
+          },
+          {
+            "name": "Medium",
+            "value": "medium"
+          },
+          {
+            "name": "Large",
+            "value": "large"
+          }
+        ]
       }
     ]
   },
@@ -801,126 +790,5014 @@
     ]
   },
   {
-        "id": "teaser",
+    "id": "dm-template",
+    "fields": [
+        {
+          "component": "select",
+          "name": "config_source",
+          "value": "inline",
+          "label": "Template Config Source",
+          "description": "Choose the source to provide the template path and variable configurations.",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Content Fragment",
+              "value": "cf"
+            },
+            {
+              "name": "Inline",
+              "value": "inline"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "===": [{ "var": "config_source" }, "inline"]
+          },
+          "component": "text",
+          "name": "dm_template_url",
+          "label": "Template Path",
+          "description": "Provide full URL for the Dynamic Media Template. Templates should have variables which can be configured in Variable Mappings field.",
+          "valueType": "string"
+        },
+        {
+          "condition": {
+            "===": [{ "var": "config_source" }, "inline"]
+          },          
+          "component": "text",
+          "valueType": "string",
+          "name": "var_mapping",
+          "value": "",
+          "multi": true,
+          "label": "Variable Mappings",
+          "description": "Provide variable values. These values should be exposed in the DM template inorder to get replaced e.g. $leftImage=DynamicMediaNA/adobestock-167833331"
+        },
+        {
+          "condition": {
+            "===": [{ "var": "config_source" }, "cf"]
+          },
+          "component": "aem-content",
+          "name": "reference",
+          "label": "Reference",
+          "valueType": "string",
+          "required": true,
+          "validation": {
+              "rootPath": "/content/dam"
+          }
+        }
+      ]
+  },
+  {
+    "id": "teaser",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "value": "Your text will show here.",
+        "name": "teaserBlurb",
+        "label": "Title"
+      },
+      {
+        "component": "select",
+        "name": "teaserStyle",
+        "value": "image",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Video",
+            "value": "video"
+          },
+          {
+            "name": "Image",
+            "value": "image"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "label": "Video Properties",
+        "name": "videoProperties",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "teaserStyle"
+            },
+            "video"
+          ]
+        },
         "fields": [
           {
-            "component": "richtext",
+            "component": "text",
             "valueType": "string",
-            "value": "Your text will show here.",
-            "name": "teaserBlurb",
-            "label": "Title"
+            "name": "videoReference",
+            "label": "Video Reference",
+            "multi": false,
+            "description": "Provide a URL for the video background."
           },
           {
             "component": "select",
-            "name": "teaserStyle",
-            "value": "image",
-            "label": "Style",
+            "name": "videoBehavior",
+            "value": "autoplay",
+            "label": "Video Behavior (on load)",
             "valueType": "string",
             "options": [
               {
-                "name": "Video",
-                "value": "video"
+                "name": "Autoplay",
+                "value": "autoplay"
               },
               {
-                "name": "Image",
-                "value": "image"
+                "name": "Pause",
+                "value": "pause"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "label": "Image Properties",
+        "name": "imageProperties",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "teaserStyle"
+            },
+            "image"
+          ]
+        },
+        "fields": [
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "imageRef",
+            "label": "Image",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "alt",
+            "value": "Default alt",
+            "label": "Alt Text"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "label": "Button Properties",
+        "name": "buttonProperties",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "btn-text",
+            "value": "Button",
+            "label": "Button Text"
+          },
+          {
+            "component": "aem-content",
+            "name": "btn-link",
+            "label": "Button Link",
+            "valueType": "string",
+            "rootPath": "",
+            "description": "Path to linked AEM content"
+          },
+          {
+            "component": "boolean",
+            "label": "Enable Swoosh Effect",
+            "description": "Enable Circular effect on the component",
+            "name": "useSwoosh",
+            "value": "true",
+            "valueType": "boolean"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "embed-adaptive-form",
+    "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "formPath",
+        "value": "",
+        "label": "Form Path",
+        "validation": {
+          "rootPath": "/content/forms/af"
+        }
+      }
+    ]
+  },
+  {
+    "id": "form",
+    "fields": [
+      {
+        "component": "select",
+        "name": "thankYouOption",
+        "label": "On Submit",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Show message",
+            "value": "message"
+          }
+        ]
+      },
+      {
+        "component": "richtext",
+        "name": "thankYouMessage",
+        "label": "Message Content",
+        "valueType": "string",
+        "condition": {
+          "==": [
+            {
+              "var": "thankYouOption"
+            },
+            "message"
+          ]
+        }
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "actionType",
+        "label": "Submit Action",
+        "options": [
+          {
+            "name": "Submit to REST endpoint",
+            "value": "fd/af/components/guidesubmittype/restendpoint"
+          },
+          {
+            "name": "Send email",
+            "value": "fd/af/components/guidesubmittype/email"
+          },
+          {
+            "name": "Persist to Spreadsheet",
+            "value": "spreadsheet"
+          }
+        ],
+        "value": ""
+      },
+      {
+        "component": "boolean",
+        "name": "enableRestEndpointPost",
+        "label": "Enable POST request",
+        "valueType": "string",
+        "condition": {
+          "==": [
+            {
+              "var": "actionType"
+            },
+            "fd/af/components/guidesubmittype/restendpoint"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "restEndpointPostUrl",
+        "label": "URL For POST request",
+        "valueType": "string",
+        "condition": {
+          "==": [
+            {
+              "var": "actionType"
+            },
+            "fd/af/components/guidesubmittype/restendpoint"
+          ]
+        }
+      },
+      {
+        "condition": {
+          "==": [
+            {
+              "var": "actionType"
+            },
+            "spreadsheet"
+          ]
+        },
+        "component": "text",
+        "name": "spreadsheetUrl",
+        "label": "Spreadsheet Url",
+        "valueType": "string"
+      },
+      {
+        "component": "container",
+        "name": "email",
+        "label": "Email Configuration",
+        "collapsible": false,
+        "condition": {
+          "==": [
+            {
+              "var": "actionType"
+            },
+            "fd/af/components/guidesubmittype/email"
+          ]
+        },
+        "fields": [
+          {
+            "component": "text",
+            "name": "from",
+            "label": "From",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "mailto",
+            "label": "To",
+            "valueType": "string",
+            "multi": true,
+            "required": true
+          },
+          {
+            "component": "text",
+            "name": "cc",
+            "label": "CC",
+            "valueType": "string",
+            "multi": true
+          },
+          {
+            "component": "text",
+            "name": "bcc",
+            "label": "BCC",
+            "valueType": "string",
+            "multi": true
+          },
+          {
+            "component": "text",
+            "name": "subject",
+            "label": "Subject",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "useExternalEmailTemplate",
+            "label": "Use external template",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "useHtmlTemplate",
+            "label": "Use html template",
+            "valueType": "boolean"
+          },
+          {
+            "component": "aem-content",
+            "name": "templatePath",
+            "label": "External template path",
+            "valueType": "string",
+            "condition": {
+              "==": [
+                {
+                  "var": "useExternalEmailTemplate"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "richtext",
+            "name": "template",
+            "label": "Email template",
+            "valueType": "string",
+            "condition": {
+              "!=": [
+                {
+                  "var": "useExternalEmailTemplate"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "boolean",
+            "name": "includeAttachments",
+            "label": "Include attachments",
+            "valueType": "boolean"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "form-button",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "checkbox-group",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
               }
             ]
           },
           {
-            "component": "container",
-            "label": "Video Properties",
-            "name": "videoProperties",
+            "component": "text",
+            "name": "enum",
+            "label": "Options (Data Value)",
+            "valueType": "string",
+            "multi": true,
+            "required": true
+          },
+          {
+            "component": "text",
+            "name": "enumNames",
+            "label": "Options (Display Value)",
+            "valueType": "string",
+            "multi": true
+          },
+          {
+            "component": "text",
+            "name": "default",
+            "label": "Default option",
+            "valueType": "string"
+          },
+          {
+            "component": "select",
+            "name": "variant",
+            "label": "Variant",
+            "options": [
+              {
+                "name": "Default",
+                "value": "default"
+              },
+              {
+                "name": "Cards",
+                "value": "cards"
+              }
+            ],
+            "value": "default"
+          },
+          {
+            "component": "select",
+            "label": "Data type of submitted value",
+            "name": "type",
+            "valueType": "string",
+            "value": "string[]",
+            "options": [
+              {
+                "name": "String",
+                "value": "string[]"
+              },
+              {
+                "name": "Boolean",
+                "value": "boolean[]"
+              },
+              {
+                "name": "Number",
+                "value": "number[]"
+              }
+            ]
+          },
+          {
+            "component": "radio-group",
+            "label": "Display Options",
+            "name": "orientation",
+            "valueType": "string",
+            "value": "horizontal",
+            "options": [
+              {
+                "name": "Horizontally",
+                "value": "horizontal"
+              },
+              {
+                "name": "Vertically",
+                "value": "vertical"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
+            "valueType": "string",
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "checkbox",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          },
+          {
+            "component": "select",
+            "label": "Data type of submitted value",
+            "name": "type",
+            "valueType": "string",
+            "options": [
+              {
+                "name": "String",
+                "value": "string"
+              },
+              {
+                "name": "Boolean",
+                "value": "boolean"
+              },
+              {
+                "name": "Number",
+                "value": "number"
+              }
+            ]
+          },
+          {
+            "component": "text",
+            "name": "checkedValue",
+            "label": "When Checked, return value",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "enableUncheckedValue",
+            "label": "Preserve Uncheck state value.",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "uncheckedValue",
+            "label": "When Unchecked, return value",
             "valueType": "string",
             "condition": {
               "===": [
                 {
-                  "var": "teaserStyle"
+                  "var": "basic|enableUncheckedValue"
                 },
-                "video"
+                true
               ]
-            },
-            "fields": [
+            }
+          },
+          {
+            "component": "text",
+            "name": "default",
+            "label": "Default Value",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
+            "valueType": "string",
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "date-input",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
               {
-                "component": "text",
-                "valueType": "string",
-                "name": "videoReference",
-                "label": "Video Reference",
-                "multi": false,
-                "description": "Provide a URL for the video background."
+                "name": "1 column",
+                "value": "1"
               },
               {
-                "component": "select",
-                "name": "videoBehavior",
-                "value": "autoplay",
-                "label": "Video Behavior (on load)",
-                "valueType": "string",
-                "options": [
-                  {
-                    "name": "Autoplay",
-                    "value": "autoplay"
-                  },
-                  {
-                    "name": "Pause",
-                    "value": "pause"
-                  }
-                ]
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
               }
             ]
           },
           {
-            "component": "container",
-            "label": "Image Properties",
-            "name": "imageProperties",
-            "valueType": "string",
-            "condition": {
-              "===": [
-                {
-                  "var": "teaserStyle"
-                },
-                "image"
-              ]
-            },
-            "fields": [
-              {
-                "component": "reference",
-                "valueType": "string",
-                "name": "imageRef",
-                "label": "Image",
-                "multi": false
-              },
-              {
-                "component": "text",
-                "valueType": "string",
-                "name": "alt",
-                "value": "Default alt",
-                "label": "Alt Text"
-              }
-            ]
+            "component": "text",
+            "name": "placeholder",
+            "label": "Placeholder text",
+            "valueType": "string"
           },
           {
-            "component": "container",
-            "label": "Button Properties",
-            "name": "buttonProperties",
+            "component": "date-time",
+            "name": "default",
+            "label": "Default Value",
+            "valueType": "date"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
             "valueType": "string",
-            "fields": [
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          },
+          {
+            "component": "date-time",
+            "name": "minimumDate",
+            "label": "Minimum date",
+            "valueType": "date",
+            "description": "Minimum date allowed in the field",
+            "valueFormat": "YYYY-MM-DD[T]HH:mm:ss.000-00:00"
+          },
+          {
+            "component": "text",
+            "name": "minimumMessage",
+            "valueType": "string",
+            "label": "Minimum error message",
+            "description": "Error message shown when the date entered is before the minimum date."
+          },
+          {
+            "component": "date-time",
+            "name": "maximumDate",
+            "label": "Maximum date",
+            "valueType": "date",
+            "description": "Maximum date allowed in the field",
+            "valueFormat": "YYYY-MM-DD[T]HH:mm:ss.000-00:00"
+          },
+          {
+            "component": "text",
+            "name": "maximumMessage",
+            "valueType": "string",
+            "label": "Maximum error message",
+            "description": "Error message shown when the date entered is after the maximum date."
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "formats",
+        "label": "Formats",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "select",
+            "label": "Display Format",
+            "name": "displayFormat",
+            "valueType": "string",
+            "options": [
               {
-                "component": "text",
-                "valueType": "string",
-                "name": "btn-text",
-                "value": "Button",
-                "label": "Button Text"
+                "name": "No Pattern",
+                "value": ""
               },
               {
-                "component": "aem-content",
-                "name": "btn-link",
-                "label": "Button Link",
-                "valueType": "string",
-                "rootPath": "",
-                "description": "Path to linked AEM content"
+                "name": "01 April, 2007",
+                "value": "d MMMM, y"
+              },
+              {
+                "name": "April 01, 2007",
+                "value": "MMMM d, y"
+              },
+              {
+                "name": "Sunday, 01 April, 2007",
+                "value": "EEEE, d MMMM, y"
+              },
+              {
+                "name": "Sunday, April 01, 2007",
+                "value": "EEEE, MMMM d, y"
+              },
+              {
+                "name": "1/4/2007",
+                "value": "d/M/y"
               }
             ]
           }
         ]
       }
+    ]
+  },
+  {
+    "id": "drop-down",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          },
+          {
+            "component": "text",
+            "name": "enum",
+            "label": "Options (Data Value)",
+            "valueType": "string",
+            "multi": true,
+            "required": true
+          },
+          {
+            "component": "text",
+            "name": "enumNames",
+            "label": "Options (Display Value)",
+            "valueType": "string",
+            "multi": true
+          },
+          {
+            "component": "text",
+            "name": "default",
+            "label": "Default option",
+            "valueType": "string"
+          },
+          {
+            "component": "select",
+            "label": "Data type of submitted value",
+            "name": "type",
+            "valueType": "string",
+            "value": "number",
+            "options": [
+              {
+                "name": "String",
+                "value": "string"
+              },
+              {
+                "name": "Boolean",
+                "value": "boolean"
+              },
+              {
+                "name": "Number",
+                "value": "number"
+              }
+            ]
+          },
+          {
+            "component": "text",
+            "name": "placeholder",
+            "label": "Placeholder text",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
+            "valueType": "string",
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "email",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          },
+          {
+            "component": "text",
+            "name": "placeholder",
+            "label": "Placeholder text",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "default",
+            "label": "Default Value",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
+            "valueType": "string",
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          },
+          {
+            "component": "number",
+            "name": "minLength",
+            "label": "Minimum number of characters",
+            "valueType": "number",
+            "description": "Minimum length of the text in the field"
+          },
+          {
+            "component": "text",
+            "name": "minLengthMessage",
+            "valueType": "string",
+            "label": "Minimum characters error message",
+            "description": "Error message shown when less than minimum characters are entered."
+          },
+          {
+            "component": "number",
+            "name": "maxLength",
+            "label": "Maximum number of characters",
+            "valueType": "number",
+            "description": "Maximum length of the text in the field"
+          },
+          {
+            "component": "text",
+            "name": "maxLengthMessage",
+            "valueType": "string",
+            "label": "Maximum characters error message",
+            "description": "Error message shown when more than maximum characters are entered."
+          },
+          {
+            "component": "text",
+            "name": "pattern",
+            "valueType": "string",
+            "label": "Pattern",
+            "description": "Regular Expression is permitted."
+          },
+          {
+            "component": "text",
+            "name": "validatePictureClauseMessage",
+            "valueType": "string",
+            "label": "Pattern Error message",
+            "description": "Error message shown when the pattern is not matched."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "file-input",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Button Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "dragDropText",
+        "label": "Drag Drop Text",
+        "valueType": "string"
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
+            "valueType": "string",
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          },
+          {
+            "component": "number",
+            "name": "maxFileSize",
+            "label": "Maximum file size (MB)",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "maxFileSizeMessage",
+            "label": "Maximum file size error message",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "accept",
+            "label": "Allowed file types",
+            "valueType": "string",
+            "multi": true
+          },
+          {
+            "component": "text",
+            "name": "acceptMessage",
+            "label": "File type error message",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "form-fragment",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          },
+          {
+            "component": "aem-content",
+            "name": "fragmentPath",
+            "label": "Fragment reference",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "repeat",
+        "label": "Repeat Fragment",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "repeatable",
+            "label": "Make fragment repeatable",
+            "valueType": "boolean"
+          },
+          {
+            "component": "number",
+            "name": "minOccur",
+            "label": "Minimum repetitions",
+            "valueType": "number",
+            "description": "Minimum number of times the fragment appears on the form"
+          },
+          {
+            "component": "number",
+            "name": "maxOccur",
+            "label": "Maximum repetitions",
+            "valueType": "number",
+            "description": "Maximum number of times the fragment can appear on the form"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "form-image",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Name",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "jcr:title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "fileReference",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "altText",
+        "label": "Alternate text"
+      },
+      {
+        "component": "text",
+        "name": "dataRef",
+        "label": "Bind reference",
+        "valueType": "string"
+      },
+      {
+        "component": "boolean",
+        "name": "visible",
+        "label": "Show Component",
+        "valueType": "boolean",
+        "value": true
+      },
+      {
+        "component": "select",
+        "name": "colspan",
+        "label": "Column Span",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "1 column",
+            "value": "1"
+          },
+          {
+            "name": "2 column",
+            "value": "2"
+          },
+          {
+            "name": "3 column",
+            "value": "3"
+          },
+          {
+            "name": "4 column",
+            "value": "4"
+          },
+          {
+            "name": "5 column",
+            "value": "5"
+          },
+          {
+            "name": "6 column",
+            "value": "6"
+          },
+          {
+            "name": "7 column",
+            "value": "7"
+          },
+          {
+            "name": "8 column",
+            "value": "8"
+          },
+          {
+            "name": "9 column",
+            "value": "9"
+          },
+          {
+            "name": "10 column",
+            "value": "10"
+          },
+          {
+            "name": "11 column",
+            "value": "11"
+          },
+          {
+            "name": "12 column",
+            "value": "12"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "multiline-input",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          },
+          {
+            "component": "text",
+            "name": "placeholder",
+            "label": "Placeholder text",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "default",
+            "label": "Default Value",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "multiLine",
+            "label": "Allow multiple lines",
+            "valueType": "boolean"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
+            "valueType": "string",
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          },
+          {
+            "component": "number",
+            "name": "minLength",
+            "label": "Minimum number of characters",
+            "valueType": "number",
+            "description": "Minimum length of the text in the field"
+          },
+          {
+            "component": "text",
+            "name": "minLengthMessage",
+            "valueType": "string",
+            "label": "Minimum characters error message",
+            "description": "Error message shown when less than minimum characters are entered."
+          },
+          {
+            "component": "number",
+            "name": "maxLength",
+            "label": "Maximum number of characters",
+            "valueType": "number",
+            "description": "Maximum length of the text in the field"
+          },
+          {
+            "component": "text",
+            "name": "maxLengthMessage",
+            "valueType": "string",
+            "label": "Maximum characters error message",
+            "description": "Error message shown when more than maximum characters are entered."
+          },
+          {
+            "component": "text",
+            "name": "pattern",
+            "valueType": "string",
+            "label": "Pattern",
+            "description": "Regular Expression is permitted."
+          },
+          {
+            "component": "text",
+            "name": "validatePictureClauseMessage",
+            "valueType": "string",
+            "label": "Pattern Error message",
+            "description": "Error message shown when the pattern is not matched."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "number-input",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          },
+          {
+            "component": "text",
+            "name": "placeholder",
+            "label": "Placeholder text",
+            "valueType": "string"
+          },
+          {
+            "component": "number",
+            "name": "default",
+            "label": "Default Value",
+            "valueType": "number"
+          },
+          {
+            "component": "select",
+            "name": "type",
+            "label": "Number type",
+            "valueType": "string",
+            "options": [
+              {
+                "name": "Integer (1234)",
+                "value": "integer"
+              },
+              {
+                "name": "Decimal (1234.000)",
+                "value": "number"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
+            "valueType": "string",
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          },
+          {
+            "component": "number",
+            "name": "minimum",
+            "label": "Lowest number / Smallest number",
+            "valueType": "number",
+            "description": "Minimum number allowed in the field"
+          },
+          {
+            "component": "text",
+            "name": "minimumMessage",
+            "valueType": "string",
+            "label": "Minimum error message",
+            "description": "Error message shown when entered value is less than minimum."
+          },
+          {
+            "component": "number",
+            "name": "maximum",
+            "label": "Highest number / Largest number",
+            "valueType": "number",
+            "description": "Maximum number allowed in the field"
+          },
+          {
+            "component": "text",
+            "name": "maximumMessage",
+            "valueType": "string",
+            "label": "Maximum error message",
+            "description": "Error message shown when the entered value is more than maximum."
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "formats",
+        "label": "Formats",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "select",
+            "label": "Display Format",
+            "name": "displayFormat",
+            "valueType": "string",
+            "options": [
+              {
+                "name": "No Pattern",
+                "value": ""
+              },
+              {
+                "name": "$1,234.21",
+                "value": "¤#,##0.00"
+              },
+              {
+                "name": "$1234.21",
+                "value": "¤####0.00"
+              },
+              {
+                "name": "1,234.210",
+                "value": "#,###,##0.000"
+              },
+              {
+                "name": "123,421%",
+                "value": "#,###,##0%"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "panel",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "repeat",
+        "label": "Repeat Panel",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "repeatable",
+            "label": "Make panel repeatable",
+            "valueType": "boolean"
+          },
+          {
+            "component": "number",
+            "name": "minOccur",
+            "label": "Minimum repetitions",
+            "valueType": "number",
+            "description": "Minimum number of times the panel appears on the form",
+            "condition": {
+              "===": [
+                {
+                  "var": "repeat|repeatable"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "number",
+            "name": "maxOccur",
+            "label": "Maximum repetitions",
+            "valueType": "number",
+            "placeholder": "No Limit",
+            "description": "Maximum number of times the panel can appear on the form. No value indicates no limit.",
+            "condition": {
+              "and": [
+                {
+                  "===": [
+                    {
+                      "var": "repeat|repeatable"
+                    },
+                    true
+                  ]
+                },
+                {
+                  "!==": [
+                    {
+                      "var": "repeat|variant"
+                    },
+                    "noButtons"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "component": "select",
+            "name": "variant",
+            "label": "Variant",
+            "options": [
+              {
+                "name": "No Actions",
+                "value": "noButtons"
+              },
+              {
+                "name": "Add & Delete Buttons",
+                "value": "addDeleteButtons"
+              }
+            ],
+            "value": "addDeleteButtons",
+            "condition": {
+              "===": [
+                {
+                  "var": "repeat|repeatable"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "text",
+            "name": "repeatAddButtonLabel",
+            "label": "Add Button Label",
+            "valueType": "string",
+            "value": "Add",
+            "condition": {
+              "and": [
+                {
+                  "===": [
+                    {
+                      "var": "repeat|variant"
+                    },
+                    "addDeleteButtons"
+                  ]
+                },
+                {
+                  "===": [
+                    {
+                      "var": "repeat|repeatable"
+                    },
+                    true
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "component": "text",
+            "name": "repeatDeleteButtonLabel",
+            "label": "Delete Button Label",
+            "valueType": "string",
+            "value": "Delete",
+            "condition": {
+              "and": [
+                {
+                  "===": [
+                    {
+                      "var": "repeat|variant"
+                    },
+                    "addDeleteButtons"
+                  ]
+                },
+                {
+                  "===": [
+                    {
+                      "var": "repeat|repeatable"
+                    },
+                    true
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "radio-group",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          },
+          {
+            "component": "text",
+            "name": "enum",
+            "label": "Options (Data Value)",
+            "valueType": "string",
+            "multi": true,
+            "required": true
+          },
+          {
+            "component": "text",
+            "name": "enumNames",
+            "label": "Options (Display Value)",
+            "valueType": "string",
+            "multi": true
+          },
+          {
+            "component": "text",
+            "name": "default",
+            "label": "Default option",
+            "valueType": "string"
+          },
+          {
+            "component": "select",
+            "name": "variant",
+            "label": "Variant",
+            "options": [
+              {
+                "name": "Default",
+                "value": "default"
+              },
+              {
+                "name": "Cards",
+                "value": "cards"
+              }
+            ],
+            "value": "default"
+          },
+          {
+            "component": "select",
+            "label": "Data type of submitted value",
+            "name": "type",
+            "valueType": "string",
+            "options": [
+              {
+                "name": "String",
+                "value": "string"
+              },
+              {
+                "name": "Boolean",
+                "value": "boolean"
+              },
+              {
+                "name": "Number",
+                "value": "number"
+              }
+            ]
+          },
+          {
+            "component": "radio-group",
+            "label": "Display Options",
+            "name": "orientation",
+            "valueType": "string",
+            "value": "horizontal",
+            "options": [
+              {
+                "name": "Horizontally",
+                "value": "horizontal"
+              },
+              {
+                "name": "Vertically",
+                "value": "vertical"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
+            "valueType": "string",
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "captcha",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Name",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "form-reset-button",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "form-submit-button",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "telephone-input",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          },
+          {
+            "component": "text",
+            "name": "placeholder",
+            "label": "Placeholder text",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "default",
+            "label": "Default Value",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
+            "valueType": "string",
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          },
+          {
+            "component": "number",
+            "name": "minimum",
+            "label": "Lowest number / Smallest number",
+            "valueType": "number",
+            "description": "Minimum number allowed in the field"
+          },
+          {
+            "component": "text",
+            "name": "minimumMessage",
+            "valueType": "string",
+            "label": "Minimum error message",
+            "description": "Error message shown when entered value is less than minimum."
+          },
+          {
+            "component": "number",
+            "name": "maximum",
+            "label": "Highest number / Largest number",
+            "valueType": "number",
+            "description": "Maximum number allowed in the field"
+          },
+          {
+            "component": "text",
+            "name": "maximumMessage",
+            "valueType": "string",
+            "label": "Maximum error message",
+            "description": "Error message shown when the entered value is more than maximum."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "text-input",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          },
+          {
+            "component": "text",
+            "name": "placeholder",
+            "label": "Placeholder text",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "default",
+            "label": "Default Value",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "multiLine",
+            "label": "Allow multiple lines",
+            "valueType": "boolean"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
+            "valueType": "string",
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          },
+          {
+            "component": "number",
+            "name": "minLength",
+            "label": "Minimum number of characters",
+            "valueType": "number",
+            "description": "Minimum length of the text in the field"
+          },
+          {
+            "component": "text",
+            "name": "minLengthMessage",
+            "valueType": "string",
+            "label": "Minimum characters error message",
+            "description": "Error message shown when less than minimum characters are entered."
+          },
+          {
+            "component": "number",
+            "name": "maxLength",
+            "label": "Maximum number of characters",
+            "valueType": "number",
+            "description": "Maximum length of the text in the field"
+          },
+          {
+            "component": "text",
+            "name": "maxLengthMessage",
+            "valueType": "string",
+            "label": "Maximum characters error message",
+            "description": "Error message shown when more than maximum characters are entered."
+          },
+          {
+            "component": "text",
+            "name": "pattern",
+            "valueType": "string",
+            "label": "Pattern",
+            "description": "Regular Expression is permitted."
+          },
+          {
+            "component": "text",
+            "name": "validatePictureClauseMessage",
+            "valueType": "string",
+            "label": "Pattern Error message",
+            "description": "Error message shown when the pattern is not matched."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "plain-text",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Name",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "dataRef",
+        "label": "Bind reference",
+        "valueType": "string"
+      },
+      {
+        "component": "boolean",
+        "name": "visible",
+        "label": "Show Component",
+        "valueType": "boolean",
+        "value": true
+      },
+      {
+        "component": "select",
+        "name": "colspan",
+        "label": "Column Span",
+        "valueType": "string",
+        "value": "12",
+        "options": [
+          {
+            "name": "1 column",
+            "value": "1"
+          },
+          {
+            "name": "2 column",
+            "value": "2"
+          },
+          {
+            "name": "3 column",
+            "value": "3"
+          },
+          {
+            "name": "4 column",
+            "value": "4"
+          },
+          {
+            "name": "5 column",
+            "value": "5"
+          },
+          {
+            "name": "6 column",
+            "value": "6"
+          },
+          {
+            "name": "7 column",
+            "value": "7"
+          },
+          {
+            "name": "8 column",
+            "value": "8"
+          },
+          {
+            "name": "9 column",
+            "value": "9"
+          },
+          {
+            "name": "10 column",
+            "value": "10"
+          },
+          {
+            "name": "11 column",
+            "value": "11"
+          },
+          {
+            "name": "12 column",
+            "value": "12"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "accordion",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "modal",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "password",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
+            "valueType": "string",
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          },
+          {
+            "component": "number",
+            "name": "minLength",
+            "label": "Minimum number of characters",
+            "valueType": "number",
+            "description": "Minimum length of the text in the field"
+          },
+          {
+            "component": "text",
+            "name": "minLengthMessage",
+            "valueType": "string",
+            "label": "Minimum characters error message",
+            "description": "Error message shown when less than minimum characters are entered."
+          },
+          {
+            "component": "number",
+            "name": "maxLength",
+            "label": "Maximum number of characters",
+            "valueType": "number",
+            "description": "Maximum length of the text in the field"
+          },
+          {
+            "component": "text",
+            "name": "maxLengthMessage",
+            "valueType": "string",
+            "label": "Maximum characters error message",
+            "description": "Error message shown when more than maximum characters are entered."
+          },
+          {
+            "component": "text",
+            "name": "pattern",
+            "valueType": "string",
+            "label": "Pattern",
+            "description": "Regular Expression is permitted."
+          },
+          {
+            "component": "text",
+            "name": "validatePictureClauseMessage",
+            "valueType": "string",
+            "label": "Pattern Error message",
+            "description": "Error message shown when the pattern is not matched."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "rating",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "validation",
+        "label": "Validation",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "name": "required",
+            "label": "Required",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "mandatoryMessage",
+            "label": "Error message",
+            "valueType": "string",
+            "description": "Error message shown when required field is left empty."
+          },
+          {
+            "component": "text",
+            "name": "validateExpMessage",
+            "label": "Script validation message",
+            "valueType": "string",
+            "description": "Displayed when validation script fails."
+          },
+          {
+            "component": "number",
+            "name": "minimum",
+            "label": "Lowest number / Smallest number",
+            "valueType": "number",
+            "description": "Minimum number allowed in the field"
+          },
+          {
+            "component": "text",
+            "name": "minimumMessage",
+            "valueType": "string",
+            "label": "Minimum error message",
+            "description": "Error message shown when entered value is less than minimum."
+          },
+          {
+            "component": "number",
+            "name": "maximum",
+            "label": "Highest number / Largest number",
+            "valueType": "number",
+            "description": "Maximum number allowed in the field"
+          },
+          {
+            "component": "text",
+            "name": "maximumMessage",
+            "valueType": "string",
+            "label": "Maximum error message",
+            "description": "Error message shown when the entered value is more than maximum."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tnc",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          },
+          {
+            "component": "boolean",
+            "name": "showLink",
+            "label": "Replace consent text with weblink(s)",
+            "valueType": "boolean"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "wizard",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  }
 ]

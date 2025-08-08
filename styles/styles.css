@@ -23,7 +23,7 @@
 
 :root {
   /* colors */
-  --background-color: #ffffff;
+  --background-color: var(--brand-background-color, #ffffff);
   --dark-color: var(--brand-dark-color, #131313);
   --light-color: var(--brand-light-color, #dcdcdc);
   --text-color: var(--brand-text-color, #131313);
@@ -617,6 +617,7 @@ main .section.highlight {
 
 main .section[data-sec-spacing="section-none"] {
   padding-top: var(--spacing-none);
+  margin:0;
 }
 
 main .section[data-sec-spacing="section-xtiny"] {
@@ -669,6 +670,7 @@ main .section[data-sec-spacing="section-xhuge"] {
 
 main .section[data-sec-spacing-bottom="section-none"] {
   padding-bottom: var(--spacing-none);
+  margin:0;
 }
 
 main .section[data-sec-spacing-bottom="section-tiny"] {

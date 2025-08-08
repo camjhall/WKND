@@ -1,8 +1,19 @@
-.video {
+
+.video-container {
+  display: block;
+}
+
+.video-container .video-wrapper {
+  display: block;
+  width: 100%;
+}
+
+.video-container .video-wrapper .video {
   text-align: center;
   width: 100%;
-  max-width: 900px;
-  margin: 24px auto;
+  max-width: initial;
+  margin: auto;
+  padding: 0;
 }
 
 .video[data-embed-loaded='false']:not(.placeholder) {
@@ -71,19 +82,6 @@
   transform: translate(-50%, -50%);
 }
 
-.video-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 25px;
-  padding: 5% 10%;
-  box-sizing: border-box;
-  background: #ffffff;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 
 .video-container > div:nth-child(1) {
   flex: 1;

@@ -1,10 +1,10 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { getMetadata, fetchPlaceholders } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 import {
   getNavigationMenu, formatNavigationJsonData,
 } from './navigation.js';
 import {
-  getLanguage, getSiteName, TAG_ROOT, PATH_PREFIX, fetchLanguageNavigation,
+  getLanguage, getSiteName, TAG_ROOT, PATH_PREFIX,
 } from '../../scripts/utils.js';
 import {
   button,
@@ -14,7 +14,7 @@ import {
   a,
 } from '../../scripts/dom-helpers.js';
 
-import { isAuthorEnvironment, fetchLanguagePlaceholders } from '../../scripts/scripts.js';
+import { isAuthorEnvironment } from '../../scripts/scripts.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -73,11 +73,13 @@ function focusNavSection() {
  * @param {Boolean} expanded Whether the element should be expanded or collapsed
  */
 function toggleAllNavSections(sections, expanded = false) {
-  sections.querySelectorAll('.nav-sections .default-content-wrapper > ul > li').forEach((section) => {
-    section.setAttribute('aria-expanded', expanded);
-  });
+    const navSections = sections.querySelectorAll('.nav-sections .default-content-wrapper > ul > li');
+    if (navSections && navSections.length > 0) {
+      navSections.forEach((section) => {
+        section.setAttribute('aria-expanded', expanded);
+      });
+    }
 }
-
 
 async function overlayLoad(navSections) {
   const langCode = getLanguage();
@@ -314,7 +316,7 @@ async function makeImageClickableNSettingAltText(placeholderData) {
 
 async function fetchingPlaceholdersData() {
     try {
-        listOfAllPlaceholdersData = await fetchLanguagePlaceholders();
+        listOfAllPlaceholdersData = await fetchPlaceholders();
         await makeImageClickableNSettingAltText(listOfAllPlaceholdersData);
         return true; // Indicate successful completion
     } catch (error) {
@@ -473,9 +475,6 @@ export default async function decorate(block) {
   //const navPath = parentPath=='/' ? locale ? `/${locale}/nav` : '/nav' : locale ? `/${locale}/nav` : parentPath+'/nav';
   //console.log("navPath header: ", navPath);
   const fragment = await loadFragment(navPath);
-
-  const placeholdersData = await fetchLanguagePlaceholders();
-
 
   // decorate nav DOM
   block.textContent = '';

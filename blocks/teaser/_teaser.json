@@ -22,11 +22,22 @@
       "id": "teaser",
       "fields": [
         {
-          "component": "richtext",
+          "component": "text",
           "valueType": "string",
           "value": "Your text will show here.",
           "name": "teaserBlurb",
           "label": "Title"
+        },
+        {
+          "component": "select",
+          "name": "teaserStyle",
+          "value": "image",
+          "label": "Style",
+          "valueType": "string",
+          "options": [
+            { "name": "Video", "value": "video" },
+            { "name": "Image", "value": "image" }
+          ]
         },
         {
           "component": "select",
@@ -112,6 +123,14 @@
               "description": "Path to linked AEM content"
             }
           ]
+        },        
+        {
+          "component": "boolean",
+          "label": "Enable Swoosh Effect",
+          "description": "Enable Circular effect on the component",
+          "name": "useSwoosh",
+          "value": "true",
+          "valueType": "boolean"
         }
       ]
     }

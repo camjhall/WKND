@@ -15,7 +15,8 @@
   max-width: initial;
 }
 .carousel-container .carousel-wrapper .carousel {
-  padding: 0 5%;
+  padding: 5%;
+  position: relative;
 }
 .carousel-container .carousel-wrapper .carousel > ul {
   list-style: none;
@@ -183,7 +184,7 @@
   box-shadow: 0 3px 20px #00000010;
   border: 1px solid var(--light-color);
   border-radius: 4px;
-  flex-direction: column-reverse;
+  flex-direction: column-reverse !important;
 }
 .carousel > ul > li.image-bottom .cards-card-body h1 {
   margin: 0;

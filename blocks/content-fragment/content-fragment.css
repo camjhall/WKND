@@ -1,7 +1,8 @@
 
-.content-fragment-wrapper {
+
+.content-fragment-container .content-fragment-wrapper {
   width: 100%;
-  max-width: 1200px;
+  max-width: initial;
   margin: 0 auto;
   display: block;
   height: auto;

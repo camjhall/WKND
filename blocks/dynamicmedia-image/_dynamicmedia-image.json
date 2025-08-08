@@ -20,11 +20,27 @@
     {
       "id": "dm-asset",
       "fields": [
-        {
-          "component": "text",
-          "name": "dm_alttext",
-          "label": "Alt Text",
-          "valueType": "string"
+          {
+          "component": "select",
+          "name": "delivery_Type",
+          "value": "dm",
+          "label": "Delivery Type",
+          "description": "'Dynamic Media' will be rendered by providing dynamic media server URL. 'Dynamic Media with OpenAPI' will use openAPI delivery with additional options to manipulate the image rendering on the fly.",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "--Select Delivery Type--",
+              "value": "na"
+            },
+            {
+              "name": "Dynamic Media",
+              "value": "dm"
+            },
+            {
+              "name": "Dynamic Media with OpenAPI",
+              "value": "dm-openapi"
+            }
+          ]
         },
         {
           "component": "reference",
@@ -36,134 +52,122 @@
           "required": true
         },
         {
-        "component": "select",
-        "name": "delivery_Type",
-        "value": "dm",
-        "label": "Delivery Type",
-        "description": "'Dynamic Media' will be rendered by providing dynamic media server URL. 'Dynamic Media with OpenAPI' will use openAPI delivery with additional options to manipulate the image rendering on the fly.",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Dynamic Media",
-            "value": "dm"
+          "condition": {
+            "===": [{ "var": "delivery_Type" }, "dm"]
           },
-          {
-            "name": "Dynamic Media with OpenAPI",
-            "value": "dm-openapi"
-          }
-        ]
-      },
-      {
-        "condition": {
-          "===": [{ "var": "delivery_Type" }, "dm"]
+            "component": "text",
+            "name": "dmUrl",
+            "value": "https://smartimaging.scene7.com/is/image/DynamicMediaNA",
+            "label": "Dynamic Media URL",
+            "valueType": "string"
         },
-          "component": "text-input",
-          "name": "dmUrl",
-          "value": "https://smartimaging.scene7.com/is/image/DynamicMediaNA",
-          "label": "Dynamic Media URL",
+        {
+          "condition": {
+            "===": [{ "var": "delivery_Type" }, "dm-openapi"]
+          },
+          "component": "select",
+          "name": "rotation",
+          "value": "",
+          "label": "Rotation",
+          "description": "Select the rotation which will rotate the image.",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "none",
+              "value": "None"
+            },
+            {
+              "name": "30",
+              "value": "30"
+            },
+            {
+              "name": "45",
+              "value": "45"
+            },
+            {
+              "name": "60",
+              "value": "60"
+            },
+            {
+              "name": "90",
+              "value": "90"
+            },
+            {
+              "name": "120",
+              "value": "120"
+            },
+            {
+              "name": "160",
+              "value": "160"
+            },
+            {
+              "name": "180",
+              "value": "180"
+            },
+            {
+              "name": "230",
+              "value": "230"
+            },
+            {
+              "name": "270",
+              "value": "270"
+            },
+            {
+              "name": "300",
+              "value": "300"
+            },
+            {
+              "name": "330",
+              "value": "330"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "===": [{ "var": "delivery_Type" }, "dm-openapi"]
+          },
+          "component": "select",
+          "name": "flip",
+          "value": "",
+          "label": "Flip",
+          "description": "Select the flip for the image either vertical or horizontal or vertical & horizontal",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "Vertical",
+              "value": "v"
+            },
+            {
+              "name": "Horizontal",
+              "value": "h"
+            },
+            {
+              "name": "Horizontal & Vertical",
+              "value": "hv"
+            }
+          ]
+        },
+        {
+          "condition": {
+            "===": [{ "var": "delivery_Type" }, "dm-openapi"]
+          },
+          "component": "text",
+          "name": "crop",
+          "value": "",
+          "label": "Crop",
+          "description": "Crop the final image using four values: left, top, width, and height, all in percentages. For example, 10p,10p,50p,50p means crop the image starting 10% from the left and top, and take 50% of the image's width and height",
           "valueType": "string"
-      },
-      {
-        "condition": {
-          "===": [{ "var": "delivery_Type" }, "dm-openapi"]
         },
-        "component": "select",
-        "name": "rotation",
-        "value": "",
-        "label": "Rotation",
-        "description": "Select the rotation which will rotate the image.",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "none",
-            "value": "None"
-          },
-          {
-            "name": "30",
-            "value": "30"
-          },
-          {
-            "name": "45",
-            "value": "45"
-          },
-          {
-            "name": "60",
-            "value": "60"
-          },
-          {
-            "name": "90",
-            "value": "90"
-          },
-          {
-            "name": "120",
-            "value": "120"
-          },
-          {
-            "name": "160",
-            "value": "160"
-          },
-          {
-            "name": "180",
-            "value": "180"
-          },
-          {
-            "name": "230",
-            "value": "230"
-          },
-          {
-            "name": "270",
-            "value": "270"
-          },
-          {
-            "name": "300",
-            "value": "300"
-          },
-          {
-            "name": "330",
-            "value": "330"
-          }
-        ]
-      },
-      {
-        "condition": {
-          "===": [{ "var": "delivery_Type" }, "dm-openapi"]
-        },
-        "component": "select",
-        "name": "flip",
-        "value": "",
-        "label": "Flip",
-        "description": "Select the flip for the image either vertical or horizontal or vertical & horizontal",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "None",
-            "value": ""
-          },
-          {
-            "name": "Vertical",
-            "value": "v"
-          },
-          {
-            "name": "Horizontal",
-            "value": "h"
-          },
-          {
-            "name": "Horizontal & Vertical",
-            "value": "hv"
-          }
-        ]
-      },
-      {
-        "condition": {
-          "===": [{ "var": "delivery_Type" }, "dm-openapi"]
-        },
-        "component": "text",
-        "name": "crop",
-        "value": "",
-        "label": "Crop",
-        "description": "Crop the final image using four values: left, top, width, and height, all in percentages. For example, 10p,10p,50p,50p means crop the image starting 10% from the left and top, and take 50% of the image's width and height",
-        "valueType": "string"
-      }
+        {
+          "component": "text",
+          "name": "dm_alttext",
+          "label": "Alt Text",
+          "valueType": "string"
+        }
       ]
     }
   ],

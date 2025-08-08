@@ -9,7 +9,7 @@ export const TAG_ROOT = 'wknd-universal:';
 export const SUPPORTED_LANGUAGES = ['en'];
 export const INTERNAL_PAGES = ['/footer', '/nav', '/fragments', '/data', '/drafts'];
 let lang;
-import { fetchPlaceholders } from './placeholders.js';
+import { fetchPlaceholders } from './aem.js';
 import { isAuthorEnvironment } from './scripts.js';
 
 /**

@@ -192,7 +192,7 @@ export function decorateMain(main) {
 
 async function renderWBDataLayer() {
   
-  const config = await fetchPlaceholders(PATH_PREFIX);
+  //const config = await fetchPlaceholders();
   const lastPubDateStr = getMetadata('published-time');
   const firstPubDateStr = getMetadata('content_date') || lastPubDateStr;
   window.wbgData.page = {
@@ -277,9 +277,9 @@ export function decorateDMImages(main) {
             blockName = Array.from(blockBeingDecorated.classList).find(className => className !== 'block');
         }
         if(blockName && blockName === 'dynamicmedia-image'){
-          rotate = blockBeingDecorated?.children[4]?.textContent?.trim();
-          flip = blockBeingDecorated?.children[5]?.textContent?.trim();
-          crop = blockBeingDecorated?.children[6]?.textContent?.trim();
+          rotate = blockBeingDecorated?.children[3]?.textContent?.trim();
+          flip = blockBeingDecorated?.children[4]?.textContent?.trim();
+          crop = blockBeingDecorated?.children[5]?.textContent?.trim();
         }
 
         const uuidPattern = /([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i;

@@ -1,0 +1,37 @@
+
+.separator-container .separator-wrapper {
+    padding: 10px 0;
+    width: 100%;
+    min-height: 20px;
+    display: block;
+}
+.separator-container .separator-wrapper .separator {
+    width: 100%;
+    display: block;
+}
+.separator-wrapper .separator-line {
+    display: block;
+    height: 1px;
+    width: 100%;
+    background-color: #c1c1c1;
+}
+
+.separator-wrapper .separator-block.light .separator-line {
+    background-color: var(--light-color);
+}
+.separator-wrapper .separator-block.dark .separator-line {
+    background-color: var(--dark-color);
+}
+.separator-wrapper .separator-block.hidden .separator-line {
+    background-color: transparent;
+}
+
+.separator-wrapper .separator-block.small {
+    padding: 2rem 0;
+}
+.separator-wrapper .separator-block.medium {
+    padding: 4rem 0;
+}
+.separator-wrapper .separator-block.large {
+    padding: 6rem 0;
+}

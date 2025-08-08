@@ -100,6 +100,7 @@ function buildTwitterLinks() {
 }
 
 if (!window.location.hostname.includes('localhost')) {
-  loadAT();
+  
   embedCustomLibraries();
+  loadAT();
 }

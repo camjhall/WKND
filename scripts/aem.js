@@ -256,9 +256,15 @@ async function loadCSS(href) {
  */
 async function loadScript(src, attrs) {
   return new Promise((resolve, reject) => {
+    if (!src || src.trim() === '') {
+      resolve();
+      return;
+    }
+
     if (!document.querySelector(`head > script[src="${src}"]`)) {
       const script = document.createElement('script');
       script.src = src;
+      script.async = true;
       if (attrs) {
         // eslint-disable-next-line no-restricted-syntax, guard-for-in
         for (const attr in attrs) {
@@ -266,7 +272,8 @@ async function loadScript(src, attrs) {
         }
       }
       script.onload = resolve;
-      script.onerror = reject;
+      // script.onerror = reject;
+      script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
       document.head.append(script);
     } else {
       resolve();

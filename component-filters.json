@@ -8,21 +8,23 @@
   {
     "id": "section",
     "components": [
-      "text",
-      "image",
       "button",
-      "title",
-      "hero",
       "cards",
-      "columns",
-      "fragment",
-      "contentfragment",
-      "search",
-      "dm-asset",
       "carousel",
+      "columns",
+      "contentfragment",
+      "dm-asset",
+      "dm-template",
+      "fragment",
+      "hero",
+      "image",
       "teaser",
+      "text",
+      "title",
       "video",
-      "iframe"
+      "separator",
+      "form",
+      "embed-adaptive-form"
     ]
   },
   {
@@ -46,12 +48,43 @@
   {
     "id": "column",
     "components": [
-      "text",
-      "image",
       "button",
-      "title",
       "dm-asset",
-      "video"
+      "dm-template",
+      "image",
+      "text",      
+      "title",
+      "video",
+      "separator"
+    ]
+  },
+  {
+    "id": "form",
+    "components": [
+      "captcha",
+      "checkbox",
+      "checkbox-group",
+      "date-input",
+      "drop-down",
+      "email",
+      "file-input",
+      "form-accordion",
+      "form-button",
+      "form-fragment",
+      "form-image",
+      "form-modal",
+      "form-reset-button",
+      "form-submit-button",
+      "number-input",
+      "panel",
+      "password",
+      "plain-text",
+      "radio-group",
+      "rating",
+      "telephone-input",
+      "text-input",
+      "tnc",
+      "wizard"
     ]
   }
 ]
