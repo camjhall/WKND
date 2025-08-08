@@ -33,15 +33,15 @@ Athletic Nicotine
 :root {
   
 /* colors */
-  --background-color: var(--brand-background-color, #141414);
-  --dark-color: var(--brand-dark-color, #141414);
-  --light-color: var(--brand-light-color, #eceae3);
-  --text-color: var(--brand-text-color, #eceae3);
-  --text-light: var(--brand-light-text-color, #eceae3);
+  --background-color: var(--brand-background-color, #ffffff);
+  --dark-color: var(--brand-dark-color, #131313);
+  --light-color: var(--brand-light-color, #dcdcdc);
+  --text-color: var(--brand-text-color, #131313);
+  --text-light: var(--brand-light-text-color, #ffffff);
   --text-disabled:rgb(113, 113, 113);
-  --link-color: var(--brand-link-color, #eceae3);
+  --link-color: var(--brand-link-color, #131313);
   --link-hover-color: var(--brand-link-hover-color, #ffc719);
-  --main-accent-color: var(--brand-theme-color, #59a08c);
+  --main-accent-color: var(--brand-theme-color, #ffc719);
   --dark-color-opacity: rgba(0, 0, 0, 0.55);
   --light-color-opacity: rgba(255, 255, 255, 0.5);
 
